@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1515578770 source:u:\documents\programmation\bataille navale\ bp 2\main.cpp
+	<iostream>
+	<iomanip>
+	<windows.h>
+
+1516786208 source:u:\documents\programmation\bataille navale\bp 2 + 3\main.cpp
+	<iostream>
+	<iomanip>
+	<windows.h>
+
