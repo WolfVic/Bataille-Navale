@@ -7,7 +7,10 @@ using namespace std;
 string erreur = "";
 char bateau(254); // ■
 char eau('~');
+char plouf(177);
+char hit(219);
 char plateau[10][10];
+char plateauAdverse[10][10];
 
 void initialisation(char tableau[10][10], char eau)
 {
@@ -26,13 +29,18 @@ bool dejaBateau(char tableau[10][10], char eau, char bateauTaille, char sens, in
     char test(254);
     if(sens == 'h')
     {
-        if(bateauTaille + colonne > 10){
+        if(bateauTaille + colonne > 10)
+        {
             erreur += "Le bateau depasse du plateau | ";
             return true;
-        } else {
-            for(int i = colonne; i < colonne+ bateauTaille; i++ ) {
+        }
+        else
+        {
+            for(int i = colonne; i < colonne+ bateauTaille; i++ )
+            {
                 cout << "H Colonne: " << i << " Ligne: " << ligne << endl;
-                if(tableau[ligne][i] != eau) {
+                if(tableau[ligne][i] != eau)
+                {
                     erreur += "H Il y a deja un bateau !   | ";
                     return true;
                 }
@@ -41,13 +49,18 @@ bool dejaBateau(char tableau[10][10], char eau, char bateauTaille, char sens, in
     }
     else if( sens == 'v')
     {
-        if(bateauTaille + ligne > 10){
+        if(bateauTaille + ligne > 10)
+        {
             erreur += "Le bateau depasse du plateau | ";
             return true;
-        } else {
-            for(int i = ligne; i < ligne+ bateauTaille; i++ ) {
+        }
+        else
+        {
+            for(int i = ligne; i < ligne+ bateauTaille; i++ )
+            {
                 cout << "V Ligne: " << i << " Colonne: " << colonne << endl;
-                if(tableau[i][colonne] != eau) {
+                if(tableau[i][colonne] != eau)
+                {
                     cout << "bateau ligne: " << i << " colonne: " << i << endl;
                     erreur += "V Il y a deja un bateau!   | ";
                     return true;
@@ -82,12 +95,13 @@ void placement(char tableau[10][10], char bateauChar, int bateau, int bateauTail
     for(int i = 0; i < 5; i++ )
     {
         bool estPlace = false;
-        while(!estPlace) {
+        while(!estPlace)
+        {
             affichage(tableau, erreur);
             int col;
             int lig;
             char sens;
-            cout << "Placement du bateau : " << bateauNom[i] << " (" << bateauTaille[i] << ") " << endl;
+            /* cout << "Placement du bateau : " << bateauNom[i] << " (" << bateauTaille[i] << ") " << endl;
             cout << "Colonne (1-10) : ";
             cin >> col;
             col--;
@@ -95,7 +109,8 @@ void placement(char tableau[10][10], char bateauChar, int bateau, int bateauTail
             cin >> lig;
             lig--;
             cout << "Sens (h/v) : ";
-            cin >> sens;
+            cin >> sens; */
+             col=0; lig=i; sens='h';
             int taille = bateauTaille[i];
             if(!dejaBateau(tableau, eau, taille, sens, col, lig))
             {
@@ -111,12 +126,27 @@ void placement(char tableau[10][10], char bateauChar, int bateau, int bateauTail
                     }
                 }
                 estPlace = true;
-            } else
-            {
-                cout << "Pas rentrer dans ecriture" << endl;
             }
         }
     }
+}
+ void bataille (char plateau [10][10], char plateauAdverse[10][10], char eau, char bateau, char hit, char plouf)
+{
+    int nbHit(0), nbPlouf(0);
+    while(nbHit < 17 || nbPlouf < 73) {
+        int col, lig;
+        cout << "Cible?" << endl;
+        cout << "Colonne (1-10) : ";
+        cin >> col;
+        col--;
+        cout << "Ligne (1-10) : ";
+        cin >> lig;
+        lig--;
+        plateau[lig][col] == bateau ? (plateauAdverse[lig][col] = hit, nbHit++) : (plateauAdverse[lig][col] = plouf, nbPlouf++);
+        affichage(plateauAdverse, erreur);
+        cout << nbHit << " | " << nbPlouf;
+    }
+
 }
 int main()
 {
@@ -124,6 +154,7 @@ int main()
     string bateauNom[5] = {"Porte-avions", "Croiseur", "Contre-torpilleur", "Sous-marin","Torpilleur"};
     int bateauTaille[5] = {5,4,3,3,2};
     initialisation(plateau, eau);
+    initialisation(plateauAdverse, eau);
     cout << "Liste Bateaux disponibles:" << endl;
     for(int i = 0; i<5; i++)
     {
@@ -131,6 +162,8 @@ int main()
     }
     placement(plateau, bateau, 0, bateauTaille, bateauNom);
     affichage(plateau, erreur);
+    bataille(plateau, plateauAdverse, eau, bateau, hit, plouf);
+    affichage(plateauAdverse, erreur);
     return 0;
 }
 
