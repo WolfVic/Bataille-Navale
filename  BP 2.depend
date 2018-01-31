@@ -4,8 +4,10 @@
 	<iomanip>
 	<windows.h>
 
-1516788143 source:u:\documents\programmation\bataille navale\bp 2 + 3\main.cpp
+1517392487 source:u:\documents\programmation\bataille navale\bp 2 + 3\main.cpp
 	<iostream>
 	<iomanip>
 	<windows.h>
+	<stdlib.h>
+	<time.h>
 
